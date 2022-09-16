@@ -5,6 +5,7 @@ import conectarDB from "./config/db.js";
 import usuarioRoutes from "./routes/usuarioRoutes.js";
 import proyectoRoutes from "./routes/proyectoRoutes.js";
 import tareaRoutes from "./routes/tareaRoutes.js";
+import { FRONTEND_URL } from './utils'
 
 const app = express();
 app.use(express.json());
@@ -14,7 +15,7 @@ dotenv.config();
 conectarDB();
 
 // Configurar CORS
-const whitelist = [process.env.FRONTEND_URL];
+const whitelist = [FRONTEND_URL];
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -46,7 +47,7 @@ import { Server } from "socket.io";
 const io = new Server(servidor, {
   pingTimeout: 60000,
   cors: {
-    origin: process.env.FRONTEND_URL,
+    origin: FRONTEND_URL,
   },
 });
 
