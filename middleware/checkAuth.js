@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import Usuario from "../models/Usuario.js";
-import { JWT_SECRET } from '../utils'
 
 const checkAuth = async (req, res, next) => {
   let token;
@@ -11,7 +10,7 @@ const checkAuth = async (req, res, next) => {
     try {
       token = req.headers.authorization.split(" ")[1];
 
-      const decoded = jwt.verify(token, JWT_SECRET);
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
       req.usuario = await Usuario.findById(decoded.id).select(
         "-password -confirmado -token -createdAt -updatedAt -__v"
